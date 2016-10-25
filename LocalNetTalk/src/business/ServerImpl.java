@@ -36,7 +36,7 @@ public class ServerImpl {
 				
 				ServerWindow serverWindow = new ServerWindow();/////////1
 				serverWindow.setVisible(true);//每次有客户端连接就生成一个服务器端
-				serverWindow.display("已与客户端：" + socket.getRemoteSocketAddress() +  " "+socket.getInetAddress().getHostName() +" 建立连接！");//getInetAddress()返回socket的连接地址
+//				serverWindow.display("已与客户端：" + socket.getRemoteSocketAddress() +  " "+socket.getInetAddress().getHostName() +" 建立连接！");//getInetAddress()返回socket的连接地址
 				Constant.currentServer = server;
 				
 //				Constant.currentClient = ClientImpl.getClient();
