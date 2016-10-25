@@ -10,7 +10,7 @@ import window.ClientWindow;
 
 public class ClientImpl {
 	private ClientWindow clientWindow = null;
-	private static Socket client = null;
+	private Socket client = null;
 	private ObjectOutputStream out = null;
 	private ObjectInputStream in = null;
 	private SleepThread sleepThread = null;
@@ -68,9 +68,9 @@ public class ClientImpl {
 		// TODO Auto-generated method stub
 		new ClientImpl();
 	}
-	public static Socket getClient(){
-		return client;
-	}
+//	public static Socket getClient(){
+//		return client;
+//	}
 	public void close(){
 //		try {
 //			sleepThread.notify();
