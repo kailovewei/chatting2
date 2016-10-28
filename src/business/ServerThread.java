@@ -27,6 +27,7 @@ public class ServerThread implements Runnable{
 //		ServerWindow.getInstance().display("已与客户端" + client.getInetAddress().getHostAddress() + "建立连接");
 		
 //		ServerWindow.getInstance().display("---------------------");/////////1
+		serverWindow.display("已与客户端：" + socket.getRemoteSocketAddress() +  " "+socket.getInetAddress().getHostName() +" 建立连接！");//getInetAddress()返回socket的连接地址
 		serverWindow.display("---------------------");
 		try {
 			out = new ObjectOutputStream(socket.getOutputStream());
@@ -54,6 +55,7 @@ public class ServerThread implements Runnable{
 			}
 //			ServerWindow.getInstance().display("客户端" + ClientImpl.getClient().getInetAddress().getHostAddress() + "中断连接");
 //			ServerWindow.getInstance().display("客户端" + client.getInetAddress().getHostAddress() + "中断连接");
+			serverWindow.display("客户端:" + socket.getInetAddress().getHostName() + "中断连接");
 			out.close();
 			in.close();
 			socket.close();

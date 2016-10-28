@@ -73,8 +73,10 @@ public class ClientWindow extends JFrame{
 	private void butOKAction(){
 		if(out!=null){
 			try {
-				out.writeObject(client.getInetAddress().getHostName() + "-->" +text.getText());
-				display(client.getInetAddress().getHostName() + "-->" +text.getText());
+//				out.writeObject(client.getInetAddress().getHostName() + "-->" +text.getText());
+//				display(client.getInetAddress().getHostName() + "-->" +text.getText());
+				out.writeObject(client.getLocalAddress().getHostName() + "-->" + text.getText());//getLocalAddress()是返回本地地址
+				display(client.getLocalAddress().getHostName() + "-->" +text.getText());
 				out.flush();
 				text.setText("");
 			} catch (IOException e) {
