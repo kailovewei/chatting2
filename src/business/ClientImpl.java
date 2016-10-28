@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 
 import util.Constant;
+import window.ClientLoginWindow;
 import window.ClientWindow;
 
 public class ClientImpl {
@@ -20,6 +21,7 @@ public class ClientImpl {
 	public ClientImpl(){
 		try {
 			client = new Socket(Constant.SERVER_HOST, Constant.LISTEN_PORT);
+//			ClientLoginWindow login = new ClientLoginWindow();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,10 +66,10 @@ public class ClientImpl {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new ClientImpl();
-	}
+//	public static void main(String[] args) {
+//		// TODO Auto-generated method stub
+//		new ClientImpl();
+//	}
 	public static Socket getClient(){
 		return client;
 	}
