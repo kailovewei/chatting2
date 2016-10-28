@@ -1,4 +1,4 @@
-package business;
+ï»¿package business;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -28,7 +28,7 @@ public class ClientImpl {
 		}
 		clientWindow = new ClientWindow(client);
 		clientWindow.setVisible(true);
-		clientWindow.display("Á¬½ÓÖÁ·şÎñÆ÷£º" + Constant.SERVER_HOST);
+		clientWindow.display("è¿æ¥è‡³æœåŠ¡å™¨ï¼š" + Constant.SERVER_HOST);
 		clientWindow.display("------------");
 		sleepThread = new SleepThread(2);
 		try {
@@ -50,7 +50,7 @@ public class ClientImpl {
 //					e.printStackTrace();
 //				}
 //			}
-//			clientWindow.display("·şÎñÆ÷ÒÑ¶Ï¿ª");
+//			clientWindow.display("æœåŠ¡å™¨å·²æ–­å¼€");
 			
 			t = new Thread(new ClientThread(in,clientWindow));
 			clientWindow.setT(t);

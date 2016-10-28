@@ -1,4 +1,4 @@
-package business;
+ï»¿package business;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -24,13 +24,13 @@ public class ServerThread implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-//		ServerWindow.getInstance().display("ÒÑÓë¿Í»§¶Ë" + client.getInetAddress().getHostAddress() + "½¨Á¢Á¬½Ó");
+//		ServerWindow.getInstance().display("å·²ä¸å®¢æˆ·ç«¯" + client.getInetAddress().getHostAddress() + "å»ºç«‹è¿æ¥");
 		
 //		ServerWindow.getInstance().display("---------------------");/////////1
 		serverWindow.display("---------------------");
 		try {
 			out = new ObjectOutputStream(socket.getOutputStream());
-//			ServerWindow.getInstance().setOut(out);/////////////?????ÕâÑùµÄ»°µ¼ÖÂ·şÎñÆ÷¶ËÖ»ÓĞÒ»¸öÊä³öÁ÷£¬¾ÍÊÇÖ»ÄÜÏë×îºóÒ»¸ö¿Í»§¶ËÊä³ö
+//			ServerWindow.getInstance().setOut(out);/////////////?????è¿™æ ·çš„è¯å¯¼è‡´æœåŠ¡å™¨ç«¯åªæœ‰ä¸€ä¸ªè¾“å‡ºæµï¼Œå°±æ˜¯åªèƒ½æƒ³æœ€åä¸€ä¸ªå®¢æˆ·ç«¯è¾“å‡º
 			serverWindow.setOut(out);///////////////1
 			
 			in = new ObjectInputStream(socket.getInputStream());
@@ -52,8 +52,8 @@ public class ServerThread implements Runnable{
 					e.printStackTrace();
 				}
 			}
-//			ServerWindow.getInstance().display("¿Í»§¶Ë" + ClientImpl.getClient().getInetAddress().getHostAddress() + "ÖĞ¶ÏÁ¬½Ó");
-//			ServerWindow.getInstance().display("¿Í»§¶Ë" + client.getInetAddress().getHostAddress() + "ÖĞ¶ÏÁ¬½Ó");
+//			ServerWindow.getInstance().display("å®¢æˆ·ç«¯" + ClientImpl.getClient().getInetAddress().getHostAddress() + "ä¸­æ–­è¿æ¥");
+//			ServerWindow.getInstance().display("å®¢æˆ·ç«¯" + client.getInetAddress().getHostAddress() + "ä¸­æ–­è¿æ¥");
 			out.close();
 			in.close();
 			socket.close();

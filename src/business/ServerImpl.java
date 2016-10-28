@@ -1,4 +1,4 @@
-package business;
+ï»¿package business;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -34,10 +34,10 @@ public class ServerImpl {
 //		serverWindow = new ServerWindow();/////////1
 //		
 //		serverWindow.setVisible(true);
-//		serverWindow.display("µÈ´ıÁ¬½ÓÖĞ......");
+//		serverWindow.display("ç­‰å¾…è¿æ¥ä¸­......");
 		while(true){
 			try {
-				Socket socket = server.accept();//ÕâÀï×öÑéÖ¤£¬¿Í»§¶Ë³É¹¦ºó»áÂíÉÏÁ¬½Ó·şÎñÆ÷.ÎÊÌâ£ºÎŞ·¨±£Ö¤Ô­×ÓĞÔ
+				Socket socket = server.accept();//è¿™é‡ŒåšéªŒè¯ï¼Œå®¢æˆ·ç«¯æˆåŠŸåä¼šé©¬ä¸Šè¿æ¥æœåŠ¡å™¨.é—®é¢˜ï¼šæ— æ³•ä¿è¯åŸå­æ€§
 				ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 				String userID = (String)in.readObject();
@@ -53,9 +53,9 @@ public class ServerImpl {
 					continue;
 				}
 				
-				socket = server.accept();//ÕâÀïÊÇµÈ´ı¿Í»§·¢µÄĞÅÏ¢
+				socket = server.accept();//è¿™é‡Œæ˜¯ç­‰å¾…å®¢æˆ·å‘çš„ä¿¡æ¯
 				ServerWindow serverWindow = new ServerWindow();/////////1
-				serverWindow.setVisible(true);//Ã¿´ÎÓĞ¿Í»§¶ËÁ¬½Ó¾ÍÉú³ÉÒ»¸ö·şÎñÆ÷¶Ë
+				serverWindow.setVisible(true);//æ¯æ¬¡æœ‰å®¢æˆ·ç«¯è¿æ¥å°±ç”Ÿæˆä¸€ä¸ªæœåŠ¡å™¨ç«¯
 				Constant.currentServer = server;
 				
 //				Constant.currentClient = ClientImpl.getClient();

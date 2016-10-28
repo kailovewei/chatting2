@@ -1,4 +1,4 @@
-package business;
+锘縫ackage business;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -32,7 +32,7 @@ public class ClientThread implements Runnable{
 				e.printStackTrace();
 			}
 		}
-		clientWindow.display("服务器已断开");
+		clientWindow.display("鏈嶅姟鍣ㄥ凡鏂紑");
 	}
 //	public void setFlag(boolean flag){
 //		this.flag = flag;

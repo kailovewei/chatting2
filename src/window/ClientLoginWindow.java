@@ -1,4 +1,4 @@
-package window;
+ï»¿package window;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,12 +16,12 @@ import business.ClientImpl;
 import util.Constant;
 
 public class ClientLoginWindow extends JFrame{
-	private JButton butOK = new JButton("È·¶¨");
-	private JButton butNO = new JButton("È¡Ïû");
+	private JButton butOK = new JButton("ç¡®å®š");
+	private JButton butNO = new JButton("å–æ¶ˆ");
 	private JTextField text = new JTextField();
 	private JPasswordField pass = new JPasswordField();
-	private JLabel l1 = new JLabel("ÓÃ»§Ãû");
-	private JLabel l2 = new JLabel("ÃÜÂë");
+	private JLabel l1 = new JLabel("ç”¨æˆ·å");
+	private JLabel l2 = new JLabel("å¯†ç ");
 	private JPanel pan = new JPanel();
 	private String userID = null;
 	private String password = null;
@@ -67,19 +67,19 @@ public class ClientLoginWindow extends JFrame{
 		this.userID = text.getText();
 		char tmp[] = pass.getPassword();
 		this.password = new String(tmp);
-		
+		//hello
 		try {
 			client = new Socket(Constant.SERVER_HOST, Constant.LISTEN_PORT);
 			ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
 			ObjectInputStream in = new ObjectInputStream(client.getInputStream());
 			out.writeObject(userID);
-			out.writeObject(password);/////ÔÚ·şÎñÆ÷¶ËÍê³ÉÑéÖ¤¡£
+			out.writeObject(password);/////åœ¨æœåŠ¡å™¨ç«¯å®ŒæˆéªŒè¯ã€‚
 			String message = (String)in.readObject();
 			if(message.equals("yes")){
 				this.dispose();
 				new ClientImpl();
 			}else{
-				JOptionPane.showMessageDialog(this, "ÓÃ»§Ãû»òÃÜÂë²»ÕıÈ·");
+				JOptionPane.showMessageDialog(this, "ç”¨æˆ·åæˆ–å¯†ç ä¸æ­£ç¡®");
 				return;
 			}
 		} catch (Exception e) {

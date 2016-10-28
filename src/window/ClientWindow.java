@@ -1,4 +1,4 @@
-package window;
+Ôªøpackage window;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -21,7 +21,7 @@ public class ClientWindow extends JFrame{
 	private JScrollPane jsp = new JScrollPane(area,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	private JPanel pan = new JPanel();
 	private JTextField text = new JTextField();
-	private JButton butOK = new JButton("∑¢ÀÕ");
+	private JButton butOK = new JButton("ÂèëÈÄÅ");
 	private ObjectOutputStream out = null;
 	private Socket client = null;
 	private Thread t = null;
@@ -29,7 +29,7 @@ public class ClientWindow extends JFrame{
 	
 	public ClientWindow(Socket client){
 		this.client = client;
-		setTitle("øÕªß∂À");
+		setTitle("ÂÆ¢Êà∑Á´Ø");
 		setLayout(new BorderLayout());
 		area.setRows(11);
 		area.setEditable(false);

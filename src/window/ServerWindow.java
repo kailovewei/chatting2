@@ -1,4 +1,4 @@
-package window;
+ï»¿package window;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -18,13 +18,13 @@ public class ServerWindow extends JFrame{
 	private JScrollPane jsp = new JScrollPane(area,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	private JPanel pan = new JPanel();
 	private JTextField text = new JTextField();
-	private JButton butOK = new JButton("·¢ËÍ");
+	private JButton butOK = new JButton("å‘é€");
 	private ObjectOutputStream out = null;
 //	private static ServerWindow serverWindow = null;///////1
 	private Thread t = null;
 	
 	public ServerWindow(){
-		setTitle("·þÎñÆ÷¶Ë");
+		setTitle("æœåŠ¡å™¨ç«¯");
 		setLayout(new BorderLayout());
 		area.setRows(11);
 		area.setEditable(false);
@@ -77,8 +77,8 @@ public class ServerWindow extends JFrame{
 	private void butOKAction(){
 		if(out!=null){
 			try {
-				out.writeObject("·þÎñÆ÷¶Ë--> " + text.getText());
-				display("·þÎñÆ÷¶Ë--> " + text.getText());
+				out.writeObject("æœåŠ¡å™¨ç«¯--> " + text.getText());
+				display("æœåŠ¡å™¨ç«¯--> " + text.getText());
 				out.flush();
 				text.setText("");
 			} catch (IOException e) {
