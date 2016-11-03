@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Vector;
 
 import javax.swing.*;
 
@@ -27,8 +28,10 @@ public class ClientLoginWindow extends JFrame{
 	private String password = null;
 	
 	private static Socket client = null;
+	//private Vector<Vector> info = null;//只是同一个进程中的不同对象可以共用static变量。不同进程的话，static变量还是会new的。
 	
 	public ClientLoginWindow(){
+		setTitle("登录");
 		pan.setLayout(new GridLayout(3, 2));
 		pan.add(l1);
 		pan.add(text);
@@ -77,7 +80,10 @@ public class ClientLoginWindow extends JFrame{
 			String message = (String)in.readObject();
 			if(message.equals("yes")){
 				this.dispose();
-				new ClientImpl();
+//				addInfo(client.getLocalAddress().getHostName(),client.getLocalAddress().getHostAddress());
+//				System.out.println(info.size());
+				
+				new ClientImpl(client);
 			}else{
 				JOptionPane.showMessageDialog(this, "用户名或密码不正确");
 				return;
@@ -103,4 +109,14 @@ public class ClientLoginWindow extends JFrame{
 		return client;
 	}
 	
+//	private static void addInfo(String name,String IP){
+//		if(info==null){
+////			System.out.println("new");
+//			info = new Vector<Vector>();
+//		}
+//		Vector<String> v = new Vector<String>();
+//		v.add(name);
+//		v.add(IP);
+//		info.add(v);
+//	}
 }

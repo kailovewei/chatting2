@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
+import java.util.Vector;
 
 import util.Constant;
 import window.ClientLoginWindow;
@@ -11,30 +12,32 @@ import window.ClientWindow;
 
 public class ClientImpl {
 	private ClientWindow clientWindow = null;
-	private static Socket client = null;
+	private Socket client = null;
 	private ObjectOutputStream out = null;
 	private ObjectInputStream in = null;
 	private SleepThread sleepThread = null;
 	private Thread t = null;
 	private ClientThread clientThread = null;
 	
-	public ClientImpl(){
-		try {
+	public ClientImpl(Socket client){
+		this.client = client;
+		/**try {
 			client = new Socket(Constant.SERVER_HOST, Constant.LISTEN_PORT);
 //			ClientLoginWindow login = new ClientLoginWindow();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		clientWindow = new ClientWindow(client);
+		}*/
+		clientWindow = new ClientWindow(this.client);
 		clientWindow.setVisible(true);
 		clientWindow.display("连接至服务器：" + Constant.SERVER_HOST);
 		clientWindow.display("------------");
 		sleepThread = new SleepThread(2);
 		try {
-			out = new ObjectOutputStream(client.getOutputStream());
+			out = new ObjectOutputStream(this.client.getOutputStream());
 			clientWindow.setOut(out);
-			in = new ObjectInputStream(client.getInputStream());
+			in = new ObjectInputStream(this.client.getInputStream());
+			clientWindow.setIn(in);
 //			String message = null;
 //			while(sleepThread.sleep()){
 //				try {
@@ -70,9 +73,9 @@ public class ClientImpl {
 //		// TODO Auto-generated method stub
 //		new ClientImpl();
 //	}
-	public static Socket getClient(){
-		return client;
-	}
+//	public static Socket getClient(){
+//		return client;
+//	}
 	public void close(){
 //		try {
 //			sleepThread.notify();

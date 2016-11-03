@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import db.BaseDao;
 import util.Constant;
@@ -16,6 +17,7 @@ public class ServerImpl {
 	private static ServerImpl serverImpl = null;
 //	private ServerWindow serverWindow = null;/////////1
 //	private Thread t = null;
+	private static Vector<Vector> info = new Vector<Vector>();
 	
 	private ServerImpl(){
 		try {
@@ -47,20 +49,30 @@ public class ServerImpl {
 				if(rs.next()){
 					out.writeObject("yes");
 					out.flush();
+					
+					Vector<String> v = new Vector<String>();
+					v.add(socket.getInetAddress().getHostName());
+					v.add(socket.getInetAddress().getHostAddress());
+					info.add(v);
+					
+					ServerWindow serverWindow = new ServerWindow();
+					serverWindow.setVisible(true);//每次有客户端连接就生成一个服务器端
+					Thread t = new Thread(new ServerThread(socket,serverWindow));
+					serverWindow.setT(t);
 				}else{
 					out.writeObject("no");
 					out.flush();
 					continue;
 				}
-				
-				socket = server.accept();//这里是等待客户发的信息
+				//有两次socket连接，多个客户端与服务器连接的话，连socket的顺序会混乱。可以只利用第一次验证用的socket完成后续对话。
+				/**socket = server.accept();//这里是等待客户发的信息
 				ServerWindow serverWindow = new ServerWindow();/////////1
 				serverWindow.setVisible(true);//每次有客户端连接就生成一个服务器端
 				Constant.currentServer = server;
 				
 //				Constant.currentClient = ClientImpl.getClient();
-				Thread t = new Thread(new ServerThread(socket,ClientImpl.getClient(),serverWindow));
-				serverWindow.setT(t);
+				Thread t = new Thread(new ServerThread(socket,serverWindow));
+				serverWindow.setT(t);*/
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -101,5 +113,8 @@ public class ServerImpl {
 	}
 	public static ServerSocket getServer(){
 		return server;
+	}
+	public static Vector<Vector> getInfo(){
+		return info;
 	}
 }

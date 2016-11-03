@@ -12,12 +12,12 @@ public class ServerThread implements Runnable{
 	private Socket socket = null;
 	private ObjectOutputStream out = null;
 	private ObjectInputStream in = null;
-	private Socket client = null;
+//	private Socket client = null;
 	private ServerWindow serverWindow = null;/////////1
 	
-	public ServerThread(Socket socket,Socket client,ServerWindow serverWindow){///////////1
+	public ServerThread(Socket socket,ServerWindow serverWindow){///////////1
 		this.socket = socket;
-		this.client = client;
+//		this.client = client;
 		this.serverWindow = serverWindow;//////////1
 	}
 	
@@ -45,9 +45,17 @@ public class ServerThread implements Runnable{
 						serverWindow.setOut(null);
 						break;
 					}
-//					ServerWindow.getInstance().display(message);////////////1
 					
-					serverWindow.display(message);
+					if(message.equals("请求当前在线用户")){
+						out.writeObject(ServerImpl.getInfo());//读到“请求在线用户”这个命令后，直接发送info这个表格
+						out.flush();
+					}
+					
+//					ServerWindow.getInstance().display(message);////////////1
+					else{
+						serverWindow.display(message);
+					}
+//					serverWindow.display(message);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

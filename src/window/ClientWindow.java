@@ -9,6 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
+import java.util.Vector;
 
 import javax.swing.*;
 
@@ -22,10 +23,13 @@ public class ClientWindow extends JFrame{
 	private JPanel pan = new JPanel();
 	private JTextField text = new JTextField();
 	private JButton butOK = new JButton("发送");
+	private JButton butFind = new JButton("上线的人");
 	private ObjectOutputStream out = null;
+	private ObjectInputStream in = null;
 	private Socket client = null;
 	private Thread t = null;
 	private ClientThread clientThread = null;
+	private Vector<Vector> info = null;
 	
 	public ClientWindow(Socket client){
 		this.client = client;
@@ -37,6 +41,7 @@ public class ClientWindow extends JFrame{
 		text.setPreferredSize(new Dimension(320, 25));
 		pan.add(text);
 		pan.add(butOK);
+		pan.add(butFind);
 		add(jsp,BorderLayout.NORTH);
 		add(pan,BorderLayout.SOUTH);
 		pack();
@@ -69,6 +74,14 @@ public class ClientWindow extends JFrame{
 				butOKAction();
 			}
 		});
+		butFind.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				butFindAction();
+			}
+		});
 	}
 	private void butOKAction(){
 		if(out!=null){
@@ -85,8 +98,25 @@ public class ClientWindow extends JFrame{
 			}
 		}
 	}
+	private void butFindAction(){
+//		Vector<Vector> info = null;
+		try {
+			this.out.writeObject("请求当前在线用户");
+			out.flush();
+//			info = (Vector<Vector>) this.in.readObject();
+//			info =  ClientThread.getInfo();/////////////////
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		new OnlineClientWindow(info,this);
+		this.setEnabled(false);
+	}
 	public void setOut(ObjectOutputStream out){
 		this.out = out;
+	}
+	public void setIn(ObjectInputStream in){
+		this.in = in;
 	}
 	public void display(String mess){
 		area.append(mess+ "\n");
@@ -100,5 +130,11 @@ public class ClientWindow extends JFrame{
 	}
 	public void setClientThread(ClientThread clientThread){
 		this.clientThread = clientThread;
+	}
+	public Vector<Vector> getInfo(){
+		return this.info;
+	}
+	public void setInfo(Vector<Vector> info){
+		this.info = info;
 	}
 }
