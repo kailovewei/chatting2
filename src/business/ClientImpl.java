@@ -18,8 +18,10 @@ public class ClientImpl {
 	private SleepThread sleepThread = null;
 	private Thread t = null;
 	private ClientThread clientThread = null;
+	private String userID = null;
 	
-	public ClientImpl(Socket client){
+	public ClientImpl(Socket client,String userID){
+		this.userID = userID;
 		this.client = client;
 		/**try {
 			client = new Socket(Constant.SERVER_HOST, Constant.LISTEN_PORT);
@@ -30,6 +32,7 @@ public class ClientImpl {
 		}*/
 		clientWindow = new ClientWindow(this.client);
 		clientWindow.setVisible(true);
+		clientWindow.setLocalUserID(userID);
 		clientWindow.display("连接至服务器：" + Constant.SERVER_HOST);
 		clientWindow.display("------------");
 		sleepThread = new SleepThread(2);

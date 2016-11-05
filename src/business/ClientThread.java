@@ -25,7 +25,7 @@ public class ClientThread implements Runnable{
 //				message = (String)in.readObject();
 				message = in.readObject();
 				if(message instanceof String){
-					if(!message.equals(Constant.CONNECT_QUIT)){
+					if(!message.equals(Constant.CONNECT_QUIT)){//
 						clientWindow.display((String)message);
 					}else{
 						clientWindow.setOut(null);
