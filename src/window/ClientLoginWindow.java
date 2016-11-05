@@ -83,9 +83,12 @@ public class ClientLoginWindow extends JFrame{
 //				addInfo(client.getLocalAddress().getHostName(),client.getLocalAddress().getHostAddress());
 //				System.out.println(info.size());
 				
-				new ClientImpl(client);
-			}else{
+				new ClientImpl(client,userID);
+			}else if(message.equals("no")){
 				JOptionPane.showMessageDialog(this, "用户名或密码不正确");
+				return;
+			}else if(message.equals("alreadyOnline")){
+				JOptionPane.showMessageDialog(this, "用户已经在线");/////
 				return;
 			}
 		} catch (Exception e) {

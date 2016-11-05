@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import db.BaseDao;
@@ -18,6 +20,7 @@ public class ServerImpl {
 //	private ServerWindow serverWindow = null;/////////1
 //	private Thread t = null;
 	private static Vector<Vector> info = new Vector<Vector>();
+	private static Map<String,ServerThread> serverMap = new HashMap<String,ServerThread>();
 	
 	private ServerImpl(){
 		try {
@@ -44,20 +47,34 @@ public class ServerImpl {
 				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 				String userID = (String)in.readObject();
 				String password = (String)in.readObject();
-				String sql = "select * from reader where readerNo = '" + userID + "' and password = '" + password + "'";
+				String sql = "select * from user where userID = '" + userID + "' and password = '" + password + "' and isOnline = 1";
 				ResultSet rs = BaseDao.executeQuery(sql);
 				if(rs.next()){
-					out.writeObject("yes");
+					out.writeObject("alreadyOnline");
+					out.flush();
+					continue;
+				}
+				sql = "select * from user where userID = '" + userID + "' and password = '" + password + "' and isOnline = 0";
+				rs = BaseDao.executeQuery(sql);
+				if(rs.next()){
+					sql = "update user set isOnline = 1 where userID = '" + userID + "' and password ='" + password + "'";
+					int i = BaseDao.executeUpdate(sql);
+					out.writeObject("yes");//
 					out.flush();
 					
 					Vector<String> v = new Vector<String>();
+					v.add(userID);
 					v.add(socket.getInetAddress().getHostName());
 					v.add(socket.getInetAddress().getHostAddress());
 					info.add(v);
 					
 					ServerWindow serverWindow = new ServerWindow();
+					serverWindow.setLocalUserID(userID);
 					serverWindow.setVisible(true);//每次有客户端连接就生成一个服务器端
-					Thread t = new Thread(new ServerThread(socket,serverWindow));
+					ServerThread st = new ServerThread(socket,serverWindow);
+//					Thread t = new Thread(new ServerThread(socket,serverWindow));
+					Thread t = new Thread(st);
+					serverMap.put(userID, st);//每个上线用户都有对应服务线程为他服务。记录下来，服务器间的通信就相当于服务线程之间的通信。
 					serverWindow.setT(t);
 				}else{
 					out.writeObject("no");
@@ -116,5 +133,8 @@ public class ServerImpl {
 	}
 	public static Vector<Vector> getInfo(){
 		return info;
+	}
+	public static Map<String, ServerThread> getServerMap() {
+		return serverMap;
 	}
 }
