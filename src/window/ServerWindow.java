@@ -7,10 +7,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
+import java.net.Socket;
+import java.util.Vector;
 
 import javax.swing.*;
 
 import business.ServerImpl;
+import db.BaseDao;
 import util.Constant;
 
 public class ServerWindow extends JFrame{
@@ -22,6 +25,8 @@ public class ServerWindow extends JFrame{
 	private ObjectOutputStream out = null;
 //	private static ServerWindow serverWindow = null;///////1
 	private Thread t = null;
+	private Socket socket = null;
+	private String localUserID = null;
 	
 	public ServerWindow(){
 		setTitle("服务器端");
@@ -46,6 +51,17 @@ public class ServerWindow extends JFrame{
 					try {
 						out.writeObject(Constant.CONNECT_QUIT);
 						out.flush();
+						if(socket!=null){
+							Vector<String> v = new Vector<String>();
+							v.add(localUserID);
+							v.add(socket.getInetAddress().getHostName());
+							v.add(socket.getInetAddress().getHostAddress());
+							if(ServerImpl.getInfo().contains(v)){
+								ServerImpl.getInfo().remove(v);
+							}
+							String sql = "update user set isOnline = 0 where userID = '" + localUserID + "'";
+							int i = BaseDao.executeUpdate(sql);
+						}
 //						ServerImpl.close();
 //						System.exit(1);
 					} catch (IOException e1) {
@@ -104,5 +120,17 @@ public class ServerWindow extends JFrame{
 	public void setT(Thread t){
 		this.t = t;
 		this.t.start();
+	}
+
+	public void setSocket(Socket socket) {
+		this.socket = socket;
+	}
+
+	public void setLocalUserID(String localUserID) {
+		this.localUserID = localUserID;
+	}
+
+	public String getLocalUserID() {
+		return localUserID;
 	}
 }

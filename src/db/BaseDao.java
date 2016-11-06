@@ -36,6 +36,19 @@ public class BaseDao {
 		return null;
 	}
 	
+	public static int executeUpdate(String sql){
+		if(connection == null){
+			new BaseDao();
+		}
+		try {
+			return connection.createStatement().executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;//
+	}
+	
 	public static void close(){
 		if(connection!=null){
 			try {
